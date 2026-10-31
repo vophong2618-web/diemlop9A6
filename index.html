@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Liên Lạc Điện Tử - Lớp 9A6</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white shadow-md">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+                <div class="bg-white text-blue-600 p-2.5 rounded-xl shadow">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold uppercase tracking-wide">Sổ Liên Lạc Điện Tử</h1>
+                    <p class="text-xs text-blue-100">Tra cứu kết quả học tập lớp 9A6 - Thầy Nam Phong</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="showSearchTab()" id="btnSearchTab" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-inner">
+                    <i class="fa-solid fa-magnifying-glass mr-1.5"></i> Phụ huynh tra cứu
+                </button>
+                <button onclick="showAdminTab()" id="btnAdminTab" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                    <i class="fa-solid fa-lock mr-1.5"></i> Giáo viên
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8">
+
+        <!-- Search Section -->
+        <div id="searchSection" class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-slate-100">
+            <div class="text-center max-w-lg mx-auto mb-8">
+                <div class="inline-flex bg-blue-50 text-blue-600 p-3 rounded-full mb-3">
+                    <i class="fa-solid fa-phone text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">Tra Cứu Kết Quả Học Tập</h2>
+                <p class="text-slate-500 text-sm mt-1">Vui lòng nhập số điện thoại phụ huynh đã đăng ký với nhà trường để xem thông tin của con.</p>
+            </div>
+
+            <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-grow">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <input type="tel" id="phoneInput" placeholder="Nhập số điện thoại (VD: 0915022345)" 
+                        class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-800 text-sm transition">
+                </div>
+                <button onclick="searchScores()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center justify-center">
+                    <span>Tra cứu ngay</span>
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="mt-4 text-center">
+                <span class="text-xs text-slate-400">💡 Thử nhanh SĐT mẫu: </span>
+                <button onclick="quickSearch('0915022345')" class="text-xs text-blue-600 hover:underline mx-1 font-medium">0915022345 (Đậu Bảo Anh)</button> | 
+                <button onclick="quickSearch('0967454993')" class="text-xs text-blue-600 hover:underline mx-1 font-medium">0967454993 (Lê Mai Thiên Anh)</button>
+            </div>
+
+            <!-- Results Container -->
+            <div id="resultsContainer" class="mt-8 space-y-6"></div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="adminSection" class="hidden bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800"><i class="fa-solid fa-database text-blue-600 mr-2"></i>Quản Lý Dữ Liệu Điểm Lớp 9A6</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Dữ liệu hiện tại đã được nhúng sẵn cố định trong hệ thống.</p>
+                </div>
+                <span class="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
+                    <i class="fa-solid fa-circle-check mr-1"></i> Đang hoạt động ổn định
+                </span>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800 mb-6 flex items-start space-x-3">
+                <i class="fa-solid fa-circle-info text-blue-600 mt-0.5 text-base"></i>
+                <div>
+                    <span class="font-semibold">Thông tin:</span> Ứng dụng này đã được cấu hình tự động nhận toàn bộ danh sách học sinh từ file Excel của Thầy. Bất kỳ phụ huynh nào khi truy cập đường link đều có thể tra cứu ngay lập tức mà không cần thao tác tải file lại.
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="showSearchTab()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-medium px-5 py-2.5 rounded-xl transition">
+                    Quay lại trang Tra cứu
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-400">
+        © 2026 - Sổ Liên Lạc Điện Tử | Thiết kế dành riêng cho Thầy Nam Phong & Học sinh lớp 9A6
+    </footer>
+
+    <!-- Embedded Data Script -->
+    <script>
+        // Dữ liệu học sinh nhúng trực tiếp từ file Excel của Thầy Nam Phong
+        const studentData = [{"Số điện thoại": 915022345, "Họ và tên": "Đậu Bảo Anh", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.3, "TB": 8.65, "Nhận xét": "Hạng 14. Ngồi học chưa tập trung, ghi bài chậm"}, {"Số điện thoại": 967454993, "Họ và tên": "Lê Mai Thiên Anh", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.4, "TB": 7.7, "Nhận xét": "Hạng 32. Ngồi học chưa tập trung, còn nói chuyện riêng"}, {"Số điện thoại": 334073544, "Họ và tên": "Nguyễn Quang Tuấn Anh", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.7, "TB": 7.85, "Nhận xét": "Hạng 30. Còn nói chuyện riêng, học yếu"}, {"Số điện thoại": 919450368, "Họ và tên": "Nguyễn Thị Ngọc Anh", "Lớp": "9A6", "TX1": 8.0, "TX2": 4.9, "TB": 6.45, "Nhận xét": "Hạng 35. Học tốt"}, {"Số điện thoại": 988752335, "Họ và tên": "Nguyễn Đức Bình", "Lớp": "9A6", "TX1": 9.0, "TX2": 7.7, "TB": 8.35, "Nhận xét": "Hạng 19. Học tốt"}, {"Số điện thoại": 977839222, "Họ và tên": "Ngô Chí Công", "Lớp": "9A6", "TX1": 5.0, "TX2": 3.3, "TB": 4.15, "Nhận xét": "Hạng 44. Học yếu"}, {"Số điện thoại": 975764806, "Họ và tên": "Nguyễn Lương Minh Đức", "Lớp": "9A6", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 1. "}, {"Số điện thoại": 915667677, "Họ và tên": "Phan Nguyễn Gia Hân", "Lớp": "9A6", "TX1": 8.5, "TX2": 8.3, "TB": 8.4, "Nhận xét": "Hạng 18. "}, {"Số điện thoại": 962196505, "Họ và tên": "Trần Nguyễn Bảo Hân", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.9, "TB": 7.95, "Nhận xét": "Hạng 26. "}, {"Số điện thoại": 988400287, "Họ và tên": "Hồ Duy Hoàng", "Lớp": "9A6", "TX1": 10.0, "TX2": 7.9, "TB": 8.95, "Nhận xét": "Hạng 6. Ý thức tốt, học tốt"}, {"Số điện thoại": 983940985, "Họ và tên": "Nguyễn Huy Hoàng", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.1, "TB": 7.55, "Nhận xét": "Hạng 33. "}, {"Số điện thoại": 978328526, "Họ và tên": "Lê Mạnh Hùng", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. Học tốt nhưng điểm chưa cao"}, {"Số điện thoại": 943268089, "Họ và tên": "Trịnh Xuân Huy", "Lớp": "9A6", "TX1": 8.0, "TX2": 8.5, "TB": 8.25, "Nhận xét": "Hạng 21. Cần cố gắng"}, {"Số điện thoại": 946719202, "Họ và tên": "Hoàng Văn Minh Khôi", "Lớp": "9A6", "TX1": 9.0, "TX2": 9.2, "TB": 9.1, "Nhận xét": "Hạng 5. Học tốt"}, {"Số điện thoại": 984507909, "Họ và tên": "Lê Giang Lâm", "Lớp": "9A6", "TX1": "", "TX2": 7.9, "TB": 7.9, "Nhận xét": "Hạng 29. "}, {"Số điện thoại": 971994781, "Họ và tên": "Trần Nguyễn Hà Linh", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 912202686, "Họ và tên": "Võ Hà Linh", "Lớp": "9A6", "TX1": 8.0, "TX2": 8.5, "TB": 8.25, "Nhận xét": "Hạng 21. "}, {"Số điện thoại": 974243535, "Họ và tên": "Đậu Bảo Long", "Lớp": "9A6", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 1. Còn nói chuyện riêng"}, {"Số điện thoại": 399736218, "Họ và tên": "Nguyễn Đình Long", "Lớp": "9A6", "TX1": 6.0, "TX2": 4.3, "TB": 5.15, "Nhận xét": "Hạng 42. Ngồi học chưa tập trung, ghi bài chậm"}, {"Số điện thoại": 355188189, "Họ và tên": "Phan Xuân Nhật Minh", "Lớp": "9A6", "TX1": 9.0, "TX2": 7.1, "TB": 8.05, "Nhận xét": "Hạng 25. Ngồi học chưa tập trung, ghi bài chậm"}, {"Số điện thoại": 913076115, "Họ và tên": "Trần Thị Kim Ngân", "Lớp": "9A6", "TX1": 7.0, "TX2": 4.3, "TB": 5.65, "Nhận xét": "Hạng 40. "}, {"Số điện thoại": 389676623, "Họ và tên": "Phạm Tuấn Ngọc", "Lớp": "9A6", "TX1": 4.0, "TX2": 8.7, "TB": 6.35, "Nhận xét": "Hạng 36. Ngồi học chưa tập trung, học yếu"}, {"Số điện thoại": 983414377, "Họ và tên": "Trần An Nhàn", "Lớp": "9A6", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 1. Ngồi học chưa tập trung, cần cố gắng"}, {"Số điện thoại": 915237999, "Họ và tên": "Hồ Minh Nhật", "Lớp": "9A6", "TX1": 8.0, "TX2": 9.5, "TB": 8.75, "Nhận xét": "Hạng 11. Học tốt"}, {"Số điện thoại": 328762688, "Họ và tên": "Lê Võ Xuân Nhi", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 947606226, "Họ và tên": "Võ Ngọc Tuệ Nhi", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.9, "TB": 7.95, "Nhận xét": "Hạng 26. "}, {"Số điện thoại": 865413403, "Họ và tên": "Lê Minh Quang", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.9, "TB": 7.95, "Nhận xét": "Hạng 26. Ngồi học chưa tập trung, còn nói chuyện"}, {"Số điện thoại": 915318700, "Họ và tên": "Bùi Hoàng Quân", "Lớp": "9A6", "TX1": 8.0, "TX2": 9.5, "TB": 8.75, "Nhận xét": "Hạng 11. Có ý thức trong học tập"}, {"Số điện thoại": 904550977, "Họ và tên": "Vũ Minh Quân", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.7, "TB": 7.85, "Nhận xét": "Hạng 30. "}, {"Số điện thoại": 974747639, "Họ và tên": "Phạm Ngọc Nguyên Thảo", "Lớp": "9A6", "TX1": 8.0, "TX2": 3.7, "TB": 5.85, "Nhận xét": "Hạng 39. Học tốt"}, {"Số điện thoại": 976954045, "Họ và tên": "Nguyễn Thị Anh Thơ", "Lớp": "9A6", "TX1": 8.5, "TX2": 8.5, "TB": 8.5, "Nhận xét": "Hạng 16. "}, {"Số điện thoại": 394570221, "Họ và tên": "Hồ Thức Thuận", "Lớp": "9A6", "TX1": 4.0, "TX2": 4.5, "TB": 4.25, "Nhận xét": "Hạng 43. Còn nói chuyện riêng, học yếu"}, {"Số điện thoại": 947889383, "Họ và tên": "Phạm Ngọc Khánh Thư", "Lớp": "9A6", "TX1": 5.0, "TX2": 6.3, "TB": 5.65, "Nhận xét": "Hạng 40. "}, {"Số điện thoại": 913464986, "Họ và tên": "Nguyễn Bảo Trang", "Lớp": "9A6", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 1. "}, {"Số điện thoại": 976249668, "Họ và tên": "Nguyễn Trần Bảo Trang", "Lớp": "9A6", "TX1": 8.0, "TX2": 8.7, "TB": 8.35, "Nhận xét": "Hạng 19. "}, {"Số điện thoại": 936323487, "Họ và tên": "Cao Huyền Bảo Trâm", "Lớp": "9A6", "TX1": 8.0, "TX2": 7.1, "TB": 7.55, "Nhận xét": "Hạng 33. "}, {"Số điện thoại": 936474799, "Họ và tên": "Ngô Minh Trí", "Lớp": "9A6", "TX1": 9.0, "TX2": 7.9, "TB": 8.45, "Nhận xét": "Hạng 17. "}, {"Số điện thoại": 967333276, "Họ và tên": "Thái Thảo Uyên", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 987235666, "Họ và tên": "Nguyễn Xuân Việt", "Lớp": "9A6", "TX1": 8.5, "TX2": 7.7, "TB": 8.1, "Nhận xét": "Hạng 24. Ngồi học chưa tập trung"}, {"Số điện thoại": 377574347, "Họ và tên": "Lê Hồng Vinh", "Lớp": "9A6", "TX1": 4.0, "TX2": 8.7, "TB": 6.35, "Nhận xét": "Hạng 36. "}, {"Số điện thoại": 912632899, "Họ và tên": "Lê Hoàng Vũ", "Lớp": "9A6", "TX1": 8.0, "TX2": 8.5, "TB": 8.25, "Nhận xét": "Hạng 21. "}, {"Số điện thoại": 979797992, "Họ và tên": "Phạm Hoàng Vy", "Lớp": "9A6", "TX1": 8.0, "TX2": 9.5, "TB": 8.75, "Nhận xét": "Hạng 11. Học tốt"}, {"Số điện thoại": 979855584, "Họ và tên": "Đặng Trần Hoàng Yến", "Lớp": "9A6", "TX1": 8.0, "TX2": 4.3, "TB": 6.15, "Nhận xét": "Hạng 38. "}, {"Số điện thoại": 834064243, "Họ và tên": "Đinh Hoàng Bảo Yến", "Lớp": "9A6", "TX1": 9.0, "TX2": 8.3, "TB": 8.65, "Nhận xét": "Hạng 14. "}, {"Số điện thoại": 967982115, "Họ và tên": "Hồ Hoài An", "Lớp": "9A2", "TX1": "", "TX2": 2.9, "TB": 2.9, "Nhận xét": "Hạng 46. học yếu, cần cố gắng "}, {"Số điện thoại": 387035388, "Họ và tên": "Lê Hữu Bảo", "Lớp": "9A2", "TX1": 8.0, "TX2": 7.7, "TB": 7.85, "Nhận xét": "Hạng 21. "}, {"Số điện thoại": 912662612, "Họ và tên": "Phan Nguyễn Gia Bảo", "Lớp": "9A2", "TX1": 6.0, "TX2": 8.7, "TB": 7.35, "Nhận xét": "Hạng 26. Chưa chú ý nghe giảng"}, {"Số điện thoại": 916909385, "Họ và tên": "Lê Văn Hải Bằng", "Lớp": "9A2", "TX1": 8.0, "TX2": 5.9, "TB": 6.95, "Nhận xét": "Hạng 30. "}, {"Số điện thoại": 832936768, "Họ và tên": "Nguyễn Thị Dung", "Lớp": "9A2", "TX1": 8.0, "TX2": 6.4, "TB": 7.2, "Nhận xét": "Hạng 27. "}, {"Số điện thoại": 988528655, "Họ và tên": "Nguyễn Quốc Dũng", "Lớp": "9A2", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 4. Học tốt"}, {"Số điện thoại": 944081123, "Họ và tên": "Võ Hoàng Duy", "Lớp": "9A2", "TX1": 7.5, "TX2": 7.9, "TB": 7.7, "Nhận xét": "Hạng 23. "}, {"Số điện thoại": 916447635, "Họ và tên": "Nguyễn Đức Thành Đạt", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 877967477, "Họ và tên": "Lương Quốc Hải Đăng", "Lớp": "9A2", "TX1": 9.0, "TX2": 6.9, "TB": 7.95, "Nhận xét": "Hạng 20. "}, {"Số điện thoại": 964856658, "Họ và tên": "Dương Thị Lam Giang", "Lớp": "9A2", "TX1": 9.0, "TX2": 4.9, "TB": 6.95, "Nhận xét": "Hạng 30. "}, {"Số điện thoại": 913275989, "Họ và tên": "Hồ Ngọc Hải", "Lớp": "9A2", "TX1": 9.0, "TX2": 7.9, "TB": 8.45, "Nhận xét": "Hạng 13. "}, {"Số điện thoại": 945772128, "Họ và tên": "Nguyễn Ngọc Hải", "Lớp": "9A2", "TX1": 8.0, "TX2": 8.7, "TB": 8.35, "Nhận xét": "Hạng 14. "}, {"Số điện thoại": 369269999, "Họ và tên": "Hồ Ngọc Hân", "Lớp": "9A2", "TX1": 5.0, "TX2": 4.5, "TB": 4.75, "Nhận xét": "Hạng 40. học yếu, cần cố gắng "}, {"Số điện thoại": 975645555, "Họ và tên": "Lê Ngọc Hân", "Lớp": "9A2", "TX1": 8.0, "TX2": 3.7, "TB": 5.85, "Nhận xét": "Hạng 38. "}, {"Số điện thoại": 393351866, "Họ và tên": "Trần Bảo Hân", "Lớp": "9A2", "TX1": 8.0, "TX2": 6.9, "TB": 7.45, "Nhận xét": "Hạng 25. "}, {"Số điện thoại": 973134979, "Họ và tên": "Phan Minh Hiếu", "Lớp": "9A2", "TX1": 10.0, "TX2": 7.9, "TB": 8.95, "Nhận xét": "Hạng 6. Học tốt"}, {"Số điện thoại": 979828778, "Họ và tên": "Nguyễn Minh Huyền", "Lớp": "9A2", "TX1": 9.0, "TX2": 7.5, "TB": 8.25, "Nhận xét": "Hạng 17. "}, {"Số điện thoại": 918459896, "Họ và tên": "Nguyễn Ngọc Huyền", "Lớp": "9A2", "TX1": 8.0, "TX2": 4.5, "TB": 6.25, "Nhận xét": "Hạng 35. Cần cố gắng"}, {"Số điện thoại": 828985558, "Họ và tên": "Hoàng Thị Lê Khanh", "Lớp": "9A2", "TX1": 8.0, "TX2": 7.1, "TB": 7.55, "Nhận xét": "Hạng 24. "}, {"Số điện thoại": 983112558, "Họ và tên": "Nguyễn Thị Kim Khánh", "Lớp": "9A2", "TX1": 8.0, "TX2": 8.5, "TB": 8.25, "Nhận xét": "Hạng 17. "}, {"Số điện thoại": 915039038, "Họ và tên": "Nguyễn Tuấn Kiệt", "Lớp": "9A2", "TX1": 9.0, "TX2": 9.5, "TB": 9.25, "Nhận xét": "Hạng 4. Học tốt"}, {"Số điện thoại": 915979055, "Họ và tên": "Phan Đan Lê", "Lớp": "9A2", "TX1": 8.0, "TX2": 8.7, "TB": 8.35, "Nhận xét": "Hạng 14. "}, {"Số điện thoại": 901549111, "Họ và tên": "Nguyễn Cao Thành Long", "Lớp": "9A2", "TX1": 5.0, "TX2": 4.8, "TB": 4.9, "Nhận xét": "Hạng 39. Cần cố gắng"}, {"Số điện thoại": 986386123, "Họ và tên": "Lê Anh Nhật Minh", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. Học tốt"}, {"Số điện thoại": 949941951, "Họ và tên": "Phan Nhật Minh", "Lớp": "9A2", "TX1": 10.0, "TX2": 9.1, "TB": 9.55, "Nhận xét": "Hạng 2. Học tốt"}, {"Số điện thoại": 915545357, "Họ và tên": "Trần Đức Minh", "Lớp": "9A2", "TX1": 5.0, "TX2": 7.1, "TB": 6.05, "Nhận xét": "Hạng 37. "}, {"Số điện thoại": 918240567, "Họ và tên": "Dương Trà My", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 968777304, "Họ và tên": "Lê Thị Thảo My", "Lớp": "9A2", "TX1": 5.0, "TX2": 2.9, "TB": 3.95, "Nhận xét": "Hạng 43. Học yếu, cần cố gắng "}, {"Số điện thoại": 358878266, "Họ và tên": "Hồ Nguyễn Bảo Nam", "Lớp": "9A2", "TX1": 4.0, "TX2": 3.7, "TB": 3.85, "Nhận xét": "Hạng 44. Học yếu, cần cố gắng "}, {"Số điện thoại": 941177150, "Họ và tên": "Trần Thị Kim Ngân", "Lớp": "9A2", "TX1": 7.0, "TX2": 7.1, "TB": 7.05, "Nhận xét": "Hạng 28. "}, {"Số điện thoại": 979244066, "Họ và tên": "Nguyễn Bùi Bảo Ngọc", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 372336485, "Họ và tên": "Trần Thị Ánh Ngọc", "Lớp": "9A2", "TX1": 7.0, "TX2": 5.3, "TB": 6.15, "Nhận xét": "Hạng 36. Cần cố gắng"}, {"Số điện thoại": 985556630, "Họ và tên": "Nguyễn Hà Long Nhật", "Lớp": "9A2", "TX1": 10.0, "TX2": 9.5, "TB": 9.75, "Nhận xét": "Hạng 1. Học tốt"}, {"Số điện thoại": 972180334, "Họ và tên": "Nguyễn Minh Quân", "Lớp": "9A2", "TX1": 4.0, "TX2": 4.1, "TB": 4.05, "Nhận xét": "Hạng 42. cần cố gắng "}, {"Số điện thoại": 947314552, "Họ và tên": "Đào Nhật Tân", "Lớp": "9A2", "TX1": 8.0, "TX2": 5.6, "TB": 6.8, "Nhận xét": "Hạng 32. "}, {"Số điện thoại": 968849009, "Họ và tên": "Đậu Thị Thu Thủy", "Lớp": "9A2", "TX1": 9.5, "TX2": 9.3, "TB": 9.4, "Nhận xét": "Hạng 3. "}, {"Số điện thoại": 972944748, "Họ và tên": "Phạm Minh Thư", "Lớp": "9A2", "TX1": 3.0, "TX2": 5.3, "TB": 4.15, "Nhận xét": "Hạng 41. học yếu, cần cố gắng "}, {"Số điện thoại": 915939937, "Họ và tên": "Mai Linh Trang", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 916550336, "Họ và tên": "Nguyễn Hoàng Bảo Trang", "Lớp": "9A2", "TX1": 8.0, "TX2": 5.5, "TB": 6.75, "Nhận xét": "Hạng 33. "}, {"Số điện thoại": 916550336, "Họ và tên": "Nguyễn Hoàng Hà Trang", "Lớp": "9A2", "TX1": 8.0, "TX2": 7.7, "TB": 7.85, "Nhận xét": "Hạng 21. "}, {"Số điện thoại": 914603680, "Họ và tên": "Vũ Bảo Trang", "Lớp": "9A2", "TX1": 8.0, "TX2": 8.7, "TB": 8.35, "Nhận xét": "Hạng 14. "}, {"Số điện thoại": 965968680, "Họ và tên": "Đinh Hoàng Bảo Trân", "Lớp": "9A2", "TX1": 1.0, "TX2": 1.1, "TB": 1.05, "Nhận xét": "Hạng 47. ngồi học không chú ý, ghi bài chậm, học rất yếu"}, {"Số điện thoại": 367420993, "Họ và tên": "Đặng Thanh Trúc", "Lớp": "9A2", "TX1": 8.0, "TX2": 5.3, "TB": 6.65, "Nhận xét": "Hạng 34. "}, {"Số điện thoại": 962282718, "Họ và tên": "Trần Ngọc Tú", "Lớp": "9A2", "TX1": 9.0, "TX2": 8.7, "TB": 8.85, "Nhận xét": "Hạng 7. "}, {"Số điện thoại": 378716870, "Họ và tên": "Nguyễn Quốc Tuấn", "Lớp": "9A2", "TX1": 5.0, "TX2": 2.4, "TB": 3.7, "Nhận xét": "Hạng 45. không chú ý, học còn yếu"}, {"Số điện thoại": 946078081, "Họ và tên": "Ngũ Nguyễn Quốc Việt", "Lớp": "9A2", "TX1": 8.5, "TX2": 7.5, "TB": 8.0, "Nhận xét": "Hạng 19. "}, {"Số điện thoại": 977442925, "Họ và tên": "Trần Quốc Việt", "Lớp": "9A2", "TX1": 8.0, "TX2": 6.1, "TB": 7.05, "Nhận xét": "Hạng 28. "}];
+
+        function normalizePhone(phone) {
+            if (!phone) return "";
+            let s = String(phone).trim();
+            s = s.replace(/\D/g, "");
+            return s;
+        }
+
+        function quickSearch(phone) {
+            document.getElementById('phoneInput').value = phone;
+            searchScores();
+        }
+
+        function searchScores() {
+            const rawInput = document.getElementById('phoneInput').value.trim();
+            const container = document.getElementById('resultsContainer');
+            
+            if (!rawInput) {
+                container.innerHTML = `
+                    <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-xl text-center text-sm">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Vui lòng nhập số điện thoại phụ huynh để tra cứu!
+                    </div>`;
+                return;
+            }
+
+            const cleanInput = normalizePhone(rawInput);
+
+            const matchedStudents = studentData.filter(item => {
+                const itemPhone = normalizePhone(item['Số điện thoại']);
+                return itemPhone === cleanInput || itemPhone.endsWith(cleanInput) || cleanInput.endsWith(itemPhone);
+            });
+
+            if (matchedStudents.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-rose-50 border border-rose-200 text-rose-700 p-5 rounded-xl text-center">
+                        <i class="fa-solid fa-circle-xmark text-xl mb-1"></i>
+                        <p class="font-semibold">Không tìm thấy kết quả phù hợp!</p>
+                        <p class="text-xs text-rose-500 mt-1">Số điện thoại "${rawInput}" chưa được đăng ký trong danh sách. Vui lòng kiểm tra lại.</p>
+                    </div>`;
+                return;
+            }
+
+            let html = `<div class="mb-3 text-sm font-semibold text-slate-600">Tìm thấy <span class="text-blue-600">${matchedStudents.length}</span> kết quả phù hợp:</div>`;
+            html += `<div class="space-y-6">`;
+
+            matchedStudents.forEach(st => {
+                const name = st['Họ và tên'] || 'Không rõ';
+                const lop = st['Lớp'] || '9A6';
+                const tx1 = st['TX1'] !== undefined && st['TX1'] !== "" ? st['TX1'] : '-';
+                const tx2 = st['TX2'] !== undefined && st['TX2'] !== "" ? st['TX2'] : '-';
+                const tb = st['TB'] !== undefined && st['TB'] !== "" ? st['TB'] : '-';
+                const note = st['Nhận xét'] || 'Không có nhận xét';
+
+                html += `
+                <div class="bg-gradient-to-br from-blue-50/50 to-indigo-50/30 border border-blue-100 rounded-2xl p-6 shadow-sm">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-blue-100 pb-4 mb-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-blue-600 text-white px-2.5 py-1 rounded-md">Lớp ${lop}</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
+                        </div>
+                        <div class="mt-2 sm:mt-0 text-right">
+                            <span class="text-xs text-slate-500">Điểm Trung Bình (TB)</span>
+                            <div class="text-2xl font-black text-blue-600">${tb}</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-100 shadow-sm text-center">
+                            <span class="text-xs text-slate-400 block mb-1">Điểm Thường xuyên 1 (TX1)</span>
+                            <span class="text-lg font-bold text-slate-800">${tx1}</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-100 shadow-sm text-center">
+                            <span class="text-xs text-slate-400 block mb-1">Điểm Thường xuyên 2 (TX2)</span>
+                            <span class="text-lg font-bold text-slate-800">${tx2}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-comment-dots text-blue-500 mr-1.5"></i> Nhận xét của giáo viên:
+                        </div>
+                        <p class="text-slate-700 text-sm leading-relaxed">${note}</p>
+                    </div>
+                </div>`;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function showSearchTab() {
+            document.getElementById('searchSection').classList.remove('hidden');
+            document.getElementById('adminSection').classList.add('hidden');
+            document.getElementById('btnSearchTab').className = "bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-inner";
+            document.getElementById('btnAdminTab').className = "bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition";
+        }
+
+        function showAdminTab() {
+            document.getElementById('searchSection').classList.add('hidden');
+            document.getElementById('adminSection').classList.remove('hidden');
+            document.getElementById('btnAdminTab').className = "bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-inner";
+            document.getElementById('btnSearchTab').className = "bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition";
+        }
+
+        document.getElementById('phoneInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchScores();
+            }
+        });
+    </script>
+</body>
+</html>
